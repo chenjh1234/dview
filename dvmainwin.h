@@ -72,9 +72,9 @@
 // config if support segy
 #define CONFIG_SEGY 1
 #define CONFIG_SEGD 1
-#define CONFIG_GRISYS 0
-#define CONFIG_COMPARE 0
-#define CONFIG_PICK 0
+#define CONFIG_GRISYS 1
+#define CONFIG_COMPARE 1
+#define CONFIG_PICK 1
 // 
 #define CONFIG_SAME_TYPE 1 // keep open the same type of data,
 

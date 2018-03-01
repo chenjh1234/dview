@@ -841,6 +841,7 @@ drawView* dvMainWin::createMdiChild()
    if (activeMdiChild()) if (drawview != NULL) // get display parameters from current view
          getParam(); // in create MidCjild
    drawView *child = new drawView(this);
+  //  qDebug() << "this is Compare0 = " <<child->isCompareView() ;
    mdiArea->addSubWindow(child);
    // scroll sync:synchronized
    connect(child, SIGNAL(sigMovedTo(int, int)), this, SLOT(slotViewMovedTo(int, int)));
@@ -1401,6 +1402,7 @@ void dvMainWin::slotCompare()
 // if the compare view exist,if not creat it:
    drawView *view = findCompareWin();
    if (view == NULL) view = createMdiChild();
+   
 
 //get the copare data from current data;
    sam = DOC->m_data->getSamples();
@@ -1413,6 +1415,7 @@ void dvMainWin::slotCompare()
    view->comBuf = bufnew;
    view->comHeader = hdnew;
    num = DOC->m_data->getCurTrs();
+   
 
    memcpy(view->comBuf, DOC->m_data->ptrace, sam * sizeof(float) * num);
    memcpy(view->comHeader, DOC->m_data->pheader, DOC->m_data->getHeadLen() * sizeof(int) * num);
@@ -1431,7 +1434,7 @@ void dvMainWin::slotCompare()
    view->setTitle();
    //setActiveSubWindow(view);
    setParam(view); //in slotCompare()
-                   //qDebug() << "this is Compare";
+    qDebug() << "this is Compare = " <<view->isCompareView() ;
 }
 void dvMainWin::slotSaveFile()
 {
@@ -1601,9 +1604,11 @@ void dvMainWin::drawData(drawView *view)
 }
 void dvMainWin::setView(drawView *v)
 {
-   if(drawview->nvView == NULL) return;
+  
+   if(v->nvView == NULL) return;
    drawview = v;
    naviDockWidget->setWidget(drawview->nvView);
+     
 }
 #if 0
 void dvMainWin::reDraw() // removed
@@ -1741,12 +1746,14 @@ void dvMainWin::slotActiveWin(QMdiSubWindow *win)
    }
 
    drawView *mdiChild = qobject_cast<drawView *>(win->widget()); // win is not mdiChild
+
    if (!mdiChild->data->m_bStart) return;  // first create data not set yet                                                            //qDebug() << "actived win = " << mdiChild->m_dataName;
                                            //set view ,data;
-  qDebug() << "active View &data = " << mdiChild << mdiChild->getData() ;
-   if (mdiChild->getData() != NULL) // not for compare win:
+ // qDebug() << "active View &data = " << mdiChild << mdiChild->getData()<<mdiChild->getData()->m_dataName <<mdiChild->isCompareView();
+   if (! mdiChild->isCompareView()) // not for compare win:
    {
       // set curren data and view, headdlg:
+      // qDebug() << "sssssssss";
       setView(mdiChild);
       DOC->setData(mdiChild->getData()); // current data
                                          //headDlg->setRows(DOC->m_data->mapHeader(1));//current data to setup dlg
