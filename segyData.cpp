@@ -4,6 +4,8 @@ segyData::segyData() : seisData()
 {
    m_iMainHD = 3;
    displayHeader = NULL;
+   ptrace = NULL;
+   pheader = NULL;
    setHeadLen(HEADER_LEN);
    mapHeader();
    connect(&m_segy, SIGNAL(sigThreadDown()),
@@ -101,7 +103,7 @@ int segyData::openData(QString name, QString mode)
 {
    int i, idd;
    QString str;
-   //qDebug() << name << mode;
+   qDebug() << "opendata " << name << mode;
    if (mode == "r")
    {
       idd = m_segy.openReadFile(name);
@@ -130,6 +132,9 @@ void segyData::setParam()
    int i;
    setLTR(m_segy.m_iLTR / 1000);
    setSI(m_segy.m_iSI / 1000);
+
+   qDebug() << "getSamples() = "<<getSamples() << getSI() << getLTR()   <<m_segy.m_iSI <<m_segy.m_iLTR << m_iMaxTrsOfGather;
+
    if ( m_segy.m_iAllGathers == 0) m_segy.m_iAllGathers =1;
    if ( m_segy.m_iAllTraces == 0)  m_segy.m_iAllTraces =1;
  
@@ -164,10 +169,12 @@ void segyData::setParam()
        setDevType(DEV_TAPE);
    }
        
-qDebug() << "ptrace = "<<ptrace <<pheader;
+   qDebug() << "ptrace = "<<ptrace ;
+
       if (ptrace != NULL) delete[] ptrace;
+      qDebug() << "pheader = " << pheader;
       if (pheader != NULL) delete[] pheader;
-qDebug() << "getSamples() = "<<getSamples() <<m_iMaxTrsOfGather;
+qDebug() << "getSamples() = "<<getSamples() << getSI() << getLTR()   <<m_segy.m_iSI <<m_segy.m_iLTR << m_iMaxTrsOfGather;
       ptrace = new float[m_iMaxTrsOfGather * getSamples()];
       pheader = new char[m_iMaxTrsOfGather * HEADER_LEN * sizeof(int)];
       

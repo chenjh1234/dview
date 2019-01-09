@@ -13,6 +13,7 @@ dvData::~dvData()
 //----------------------------------
 void dvData::init()
 {
+    m_strArg1 = "";
     m_dataName = "";
     m_dataType = 0;
     m_data = NULL;

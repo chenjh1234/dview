@@ -32,6 +32,7 @@ void drawView::init()
     comHeader = NULL;
     displayHeader = NULL;
     nvView = NULL;
+    setUserScale(ZOOM_NORMAL_X, ZOOM_NORMAL_Y);
  //pick:
   
 }

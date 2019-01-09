@@ -4,6 +4,8 @@ grisysData::grisysData():seisData()
 {
    m_iMainHD = 3;
    displayHeader = NULL;
+      ptrace = NULL;
+   pheader = NULL;
    setHeadLen(GHEADER_LEN);
    mapHeader();
    //m_bIdxFile = false;

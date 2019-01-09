@@ -72,7 +72,14 @@ dvMainWin::dvMainWin() : QMainWindow()
    readSettings();
    qDebug() << "data name = " << DOC->m_dataName;
    qDebug() << "data type = " << DOC->m_dataType;
-   if (!DOC->m_dataName.isEmpty())
+   if (!DOC->m_strArg1.isEmpty()) 
+   {
+       DOC->m_dataName = DOC->m_strArg1;
+       DOC->m_dataType = SEGY_DATA;
+       openFile(DOC->m_strArg1);
+   }
+   else
+   if (!DOC->m_dataName.isEmpty()) 
    {
       //qDebug() << "is in" << DOC->m_dataName.isEmpty() << DOC->m_dataName.length();
       openFile(DOC->m_dataName);
@@ -1466,7 +1473,7 @@ void dvMainWin::slotHelp()
    QString cmd, str;
 
    cmd = "showpdf ";
-   //cmd = cmd+ getDocDir()+ SLASH + "dataview.pdf";
+   cmd = cmd+ getDocDir()+ SLASH + "dataview.pdf";
    //cmd = "ls";
    qDebug() << "cmd=" << cmd;
    hrun.start(cmd);
@@ -1626,7 +1633,7 @@ void dvMainWin::setTopLabel(drawView *view)
    if (DOC->m_data == NULL) return;
 
    qDebug() << "setTopLabel : shot = " << DOC->m_data->m_iCurGather;
-   str = DOC->m_data->getGather() + "=" + QString("%L1").arg(DOC->m_data->m_iCurGather);
+   str = DOC->m_data->getGather() + "=" + QString("%1").arg(DOC->m_data->m_iCurGather);
    str = str + ":" + DOC->m_data->getDisplayHD();
    view->setTopMessage(str);
 }

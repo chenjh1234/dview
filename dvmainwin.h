@@ -87,6 +87,7 @@
 #include "paramwin.h"
 #include "naviwin.h"
 #include "dvrecentfile.h"
+#include "sysdefine.h"
 
 //#include "ui_module.h"
 //#include "ui_parmvalue.h"

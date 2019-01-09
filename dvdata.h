@@ -16,6 +16,7 @@
 /// 1.02: 2016.10 add segd format 
 /// 1.03: config the segd,segy,grisys,pick compare,
 /// 1.04: not complete:  make tape segy:
+/// 1.05: add cmd line parameter
 #define APP_VERSION "1.03"
 #define APP_DATE "2016.10"
 
@@ -43,6 +44,7 @@ public:
 // current dataname and type
     QString m_dataName;
     QString m_failedFile;// last renent file failed to open
+    QString m_strArg1;// cmdline parameter
     int m_dataType;
 
     seisData *m_data;

@@ -45,8 +45,12 @@ int main(int argc, char *argv[])
     dvData doc;
     app.m_doc = &doc;
     qDebug() << "doc = " << DOC->m_data << DOC->getData();
-    //exit(1);
- 
+    qDebug() << "argc= " << argc;
+    if (argc >=2) 
+    {
+        qDebug() << "arg1 = " << argv[1];
+        doc.m_strArg1 = argv[1];
+    }
     dvMainWin mainWin;
     app.m_win = &mainWin;
     //qDebug() << "win = " << app.m_win;
