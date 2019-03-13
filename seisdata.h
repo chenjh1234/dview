@@ -21,13 +21,13 @@
 #define SORT_AS 1
 #define SORT_DES 2
 
-#define MAX_GATHER_TRS 5000;
+#define MAX_GATHER_TRS 20000;
  
 class seisData : public QObject
 {
     Q_OBJECT
 public:
-    seisData():QObject(){};
+    seisData():QObject(){m_iSamples = 0;};
 //    ~seisData(){};
     virtual int openData(QString name,QString mode)=0;
     virtual int readPreGather(float *trace,char *header)=0;
@@ -73,7 +73,9 @@ public:
     void setLTR(int sii){ltr = sii;}; 
     float getLTR() { return ltr;};
 
-    int getSamples() { return (int)ltr/si;};
+    int getSamples() { if (m_iSamples == 0) return (int)ltr/si; 
+    else return m_iSamples;};
+    int setSamples(int sam) { m_iSamples = sam;return sam;};
 
     void setGather(QString g) { m_gather = g;};//which gather in string
     QString getGather() { return m_gather;};
@@ -113,6 +115,7 @@ public:
     char *pheader;
 //parameters :set in open
     float ltr,si;//s,ms,number;
+    int m_iSamples;
     int headBytes,traceBytes;   
     int m_gathers,m_traces;   
     int m_iMaxTrsOfGather;

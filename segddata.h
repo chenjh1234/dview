@@ -6,7 +6,7 @@
 #include <iostream>
 #include "seisdata.h"
 #include "QSegdRead.h"
-#define MAX_TRS_OF_GATHER 5000
+//#define MAX_TRS_OF_GATHER 20000
 
 /**
  * segd read class for seismic drawSection; 

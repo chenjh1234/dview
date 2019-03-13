@@ -20,6 +20,7 @@ INCLUDEPATH += \
 INCLUDEPATH += .\
         ../gridata\
         ../segdata\
+        ../property\include\
         ../draw
 
 # Input

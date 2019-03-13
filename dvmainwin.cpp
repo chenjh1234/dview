@@ -1473,8 +1473,9 @@ void dvMainWin::slotHelp()
    QString cmd, str;
 
    cmd = "showpdf ";
-   cmd = cmd+ getDocDir()+ SLASH + "dataview.pdf";
+   //cmd = cmd+ getDocDir()+ SLASH + "dataview.pdf";
    //cmd = "ls";
+   cmd = cmd+ "dataview.pdf";
    qDebug() << "cmd=" << cmd;
    hrun.start(cmd);
 }

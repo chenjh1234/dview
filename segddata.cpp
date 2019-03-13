@@ -48,6 +48,7 @@ int segdData::openData(QString name, QString mode)
 // set parameters:
       setLTR(m_segd.m_iLTR );// / 1000);
       setSI(m_segd.m_iSI / 1000);
+      setSamples(m_segd.m_iSamples);
       // setGathers(m_segd.m_iAllGathers);
       // setTraces(m_segd.m_iAllTraces);
       setGathers(1);
@@ -74,7 +75,7 @@ int segdData::openData(QString name, QString mode)
       m_mapSuperHeader = mapSuperHeader();
 // buffer ,header:
 // m_iMaxTrsOfGather = m_segd.m_iMaxTrsOfGather;
-      m_iMaxTrsOfGather = MAX_TRS_OF_GATHER;
+      m_iMaxTrsOfGather =  MAX_GATHER_TRS;//MAX_TRS_OF_GATHER;
       ptrace = new float[m_iMaxTrsOfGather * getSamples()];
       pheader = new char[m_iMaxTrsOfGather * DHEADER_LEN * sizeof(int)];
 // for display header:
@@ -160,7 +161,7 @@ int segdData::readPreGather(float *trace, char *header)
 }
 int segdData::readNextGather(float *trace, char *header)
 {
-   int  i, idx, num, sz;
+   int  i, num, sz;
    //if (m_iCurIndex >= m_segy.m_iAllGathers - 1) return -1;
    //return readGatherIndex(m_iCurIndex, trace, header);
    float *f;
@@ -329,7 +330,7 @@ QMap<QString, double> segdData::mapSuperHeader()
    map["BytesPerScan"] = m_segd.m_infoGHD.iBytesPerScan;
    map["Extended"] = m_segd.m_infoGHD.iExtended;
    map["External"] = m_segd.m_infoGHD.iExternal;
-   map["Version"] = m_segd.m_infoGHD.version;
+   map["Version"] = m_segd.m_infoGHD.iVersion;
    map["Trailer"] = m_segd.m_infoGHD.iTrailer;
    map["ScanTypes"] = m_segd.m_infoGHD.iScanTypes;
    map["MaxChSets"] = m_segd.m_infoGHD.iMaxChSets;
